@@ -42,7 +42,8 @@
             <router-link active-class="active" tag="span" to="/home/recommend">推荐</router-link>
             <router-link active-class="active" tag="span" to="/home/stadium" >场馆</router-link>            
         </div>
-        <router-view></router-view>       
+        <router-view></router-view> 
+        <Footer></Footer>
     </div>
 </template>
 <script>
@@ -51,6 +52,7 @@ import Http from '../utils/http'
 
 import Recommend from '../views/home/Recommend'
 import Stadium from '../views/home/Stadium'
+import Footer from '../components/Footer'
 
 import imgAddress from '../filter/imgAddress'
 export default {
@@ -91,7 +93,8 @@ export default {
 
     components:{
         Recommend,
-        Stadium
+        Stadium,
+        Footer
     }
 
 }
@@ -204,11 +207,13 @@ export default {
                 border-radius .1rem
 .content-header 
     width 100%
-    height .39rem   
-    font-size .20rem
+    height .45rem   
+    padding-top .1rem
+    padding-bottom .1rem
+    padding-left .2rem
+    font-size .23rem
     font-weight 800
     color #999
-    padding 0 .2rem
     span  
         margin-right .2rem 
     span.active 

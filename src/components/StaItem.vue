@@ -1,10 +1,9 @@
 <template>
     <div class="item-style">
-       <img :src="Item.PBIGIMG|imgAddress" alt=""/>
+       <img :src="Item.IMG|imgAddress" alt=""/>
        <i></i>
-       <b>{{Item.NAME}}</b>
-       <span>{{Item.BEGINDATE|dateTranslate}}</span>
-       <span><b class="money">￥{{Item.MINPRICE}}</b> 起</span>
+       <b>{{Item.VNAME}}</b>
+       <span>{{Item.ADDRESS}}</span>
     </div>
 </template>
 <script>
@@ -18,10 +17,10 @@ export default {
         }
     },
     
-    props:["dataItem"],
+    props:["dataSta"],
 
     mounted() {
-        this.Item = JSON.parse(this.dataItem)
+        this.Item = JSON.parse(this.dataSta)
         
     }
 }
@@ -30,30 +29,29 @@ export default {
 @import '~@/assets/styles/ellipsis.styl'
 @import '~@/assets/styles/border.styl'
 .item-style
-    width 1.15rem
-    height  2.23rem
+    width 1.6rem
+    height  1.8rem
     // padding-right .10rem
     // padding-bottom .15rem
     img 
-        width 1.05rem
+        width 1.6rem
         height 1.40rem
-        border-radius .05rem
+        border-radius .1rem
     b
         // wrap()
-        // ellipsis(1rem) 
+        color #333
         display block
         overflow hidden
         width 1rem
-        height .34rem
+        height .17rem
         line-height .17rem
-        font-size .12rem
+        font-size .14rem
         font-weight 700
     span
+        ellipsis(1.6rem) 
         color #999
         display block
-        font-size .12rem
-        b.money
-            display inline
-            color #ff3a56
-            font-weight 700
+        font-size .14rem
+        width 1.6rem
+      
 </style>

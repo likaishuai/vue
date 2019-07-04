@@ -1,15 +1,16 @@
 <template>
     <div class="recommend-list">
-        <Item-moive 
+        <play-item 
          v-for="item in itemList"
-        :key="item.PRODUCTID"
+        :key="item.productid"
         :data-item="JSON.stringify(item)" 
         >
-        </Item-moive>
+        </play-item >
     </div>
 </template>
 <script>
 import ItemMoive from '../../components/ItemMoive'
+import PlayItem from '../../components/PlayItem'
 
 import http  from '../../utils/http'
 
@@ -21,13 +22,14 @@ export default {
     },
     
     components:{
-        ItemMoive
+        PlayItem
     },
 
     async mounted() {
-        let url ="/api/server/content/index.json"
+        let url ="/api/server/category/default.json"
         let result = await http.get(url)
-        this.itemList = result.recommendPage.list
+        this.itemList = result.pagerMemory.fistPage
+        console.log(result)
     }
 }
 </script>
@@ -36,8 +38,9 @@ export default {
     width 100%
     align-content center
     display flex
-    padding-left .2rem
-    justify-content flex-start
+    flex-direction column
+    padding .2rem
+    justify-content center
     align-content center
     align-items  center
     flex-wrap wrap

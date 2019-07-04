@@ -30,7 +30,7 @@ import Home from './Home'
 export default {
     data(){
         return {
-            data:"hello"
+            
         }
     },
 
