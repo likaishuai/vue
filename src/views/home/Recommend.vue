@@ -12,6 +12,9 @@
 import ItemMoive from '../../components/ItemMoive'
 
 import http  from '../../utils/http'
+import BScroll from 'better-scroll'
+import _ from 'lodash'
+import { Indicator, Toast } from 'mint-ui' 
 
 export default {
     data(){
@@ -25,9 +28,14 @@ export default {
     },
 
     async mounted() {
+        Indicator.open({
+            text: 'Loading',
+            spinnerType: 'triple-bounce'
+        })
         let url ="/api/server/content/index.json"
         let result = await http.get(url)
         this.itemList = result.recommendPage.list
+        Indicator.close()
     }
 }
 </script>

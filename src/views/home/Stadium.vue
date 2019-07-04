@@ -10,6 +10,9 @@
 </template>
 <script>
 import http from '../../utils/http'
+import BScroll from 'better-scroll'
+import _ from 'lodash'
+import { Indicator, Toast } from 'mint-ui' 
 
 import StaItem from '../../components/StaItem'
 
@@ -21,9 +24,16 @@ export default {
     },
 
    async mounted(){
+        Indicator.open({
+            text: 'Loading',
+            spinnerType: 'triple-bounce'
+        }) 
+
         let url = "api/server/content/moreProductPlay.json?fcity=-1&pageNum=1&type=1"
         let result = await http.get(url)
         this.staList = result.venuePage.list
+
+        Indicator.close()
 
     },
 

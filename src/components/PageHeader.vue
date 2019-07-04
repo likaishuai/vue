@@ -9,9 +9,10 @@
 export default {
     data() {
         return {
-            title: "分类"
+            title1:''
         }
-    }
+    },
+    props:['title']
 }
 </script>
 <style lang="stylus" scoped>

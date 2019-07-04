@@ -27,17 +27,20 @@ export default {
             flex 1
             width 1.25rem
             display flex
-            justify-content flex-start
+            justify-content center
             align-items center
             span 
-                flex 1
+                // flex 1
                 font-size .16rem
                 height .45rem
                 line-height .45rem
+                padding-right .1rem
                 text-align center
             b 
-                height .15rem
-                width .15rem
-                background #ff3a56
-    
+                height 0
+                width 0
+                border-top .05rem #ff3a56 solid 
+                border-left .05rem rgba(0,0,0,0) solid 
+                border-right .05rem rgba(0,0,0,0) solid 
+                border-bottom .05rem rgba(0,0,0,0) solid 
 </style>

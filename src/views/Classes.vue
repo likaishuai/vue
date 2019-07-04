@@ -1,6 +1,6 @@
 <template>
     <div>
-        <PageHeader></PageHeader>
+        <PageHeader :title="title"></PageHeader>
         <TypeNav></TypeNav>
         <ClassList></ClassList>
         <Footer></Footer>
@@ -8,15 +8,15 @@
 </template>
 
 <script>
-import PageHeader from '../views/classesPage/PageHeader'
+import PageHeader from '../components/PageHeader'
 import TypeNav from '../components/TypeNav'
-import ClassList from '../views/classesPage/ClassList'
 import Footer from '../components/Footer'
+import ClassList from '../views/classesPage/ClassList'
 
 export default {
     data() {
         return {
-
+            title:"分类"
         }
     },
 

@@ -218,12 +218,4 @@ export default {
         margin-right .2rem 
     span.active 
         color #000
-
-
-
-
-
-
-
-
 </style>
