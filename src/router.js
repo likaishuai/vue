@@ -15,57 +15,105 @@ import Detail from './page/Detail'
 
 Vue.use(Router)
 
-let routes =  [
-  {
-    path: '/',
-    redirect: '/index'
-  },
-  {
-    path:"/detail",
-    component:Detail
-  },
-  {
-    path:'/index',
-    redirect:'/index/home',
-    component: Index,
-    children:[
+let routes = [
+    {
+      path: '/',
+      redirect:'/home',
+      component: Index,
+      children:[
       {
         path: 'home',
         name: 'home',
         component: Home,
-        redirect: '/index/home/recommend',
+        redirect: 'home/recommend',
         children: [
-         {
-           path: 'recommend',
-           name:'recommend',
-           component: Recommend
-         },
-         {
-           path: 'stadium',
-           name:'stadium',
-           component: Stadium
-         }
-       ]
-      },
+          {
+            path: 'recommend',
+            name:'recommend',
+            component: Recommend
+          },
+          {
+            path: 'stadium',
+            name:'stadium',
+            component: Stadium
+          }
+        ]
+      } , 
       {
         path:'classes',
         name: 'classes',
         component: Classes
       },
       {
-       path: 'search',
-       name: 'search',
-       component: Search
-     },
-     {
-       path:'prefile',
-       name: 'prefile',
-       component: Prefile
-     }
+        path: 'search',
+        name: 'search',
+        component: Search
+      },
+      {
+        path:'prefile',
+        name: 'prefile',
+        component: Prefile
+      },
     ]
   },
+  {
+    path:"/detail",
+    component:Detail
+  }
 ]
+
+
 
 export default new Router({
   routes
 })
+
+
+
+// let routes =  [
+//   {
+//     path: '/',
+//     redirect:'/index',
+//     component: Home,
+//     children:[
+//       {
+//         path: '/home',
+//         name: 'home',
+//         component: Home,
+//         // redirect: 'home/recommend',
+//         children: [
+//         {
+//           path: 'recommend',
+//           name:'recommend',
+//           component: Recommend
+//         },
+//         {
+//           path: 'stadium',
+//           name:'stadium',
+//           component: Stadium
+//         }
+//       ]
+//       },
+//       {
+//         path:"/detail",
+//         name:"detail",
+//         component:Detail
+//       },
+//       {
+//         path:'/classes',
+//         name: 'classes',
+//         component: Classes
+//       },
+//       {
+//         path: '/search',
+//         name: 'search',
+//         component: Search
+//       },
+//       {
+//         path:'/prefile',
+//         name: 'prefile',
+//         component: Prefile
+//       },
+//     ]
+//   },
+// ]
