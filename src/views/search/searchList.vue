@@ -7,7 +7,13 @@
                 :data-item="JSON.stringify(item)" 
             >
             </play-item >
-            <div class="loadmore" v-if="isList" @click="loadMore">查看更多</div>
+            <button class="loadmore" 
+                :disabled="disable"
+                @click="loadMore" 
+                v-if="isList"
+            >
+            {{title}}
+            </button>
         </div>
     </div>
 </template>
@@ -25,9 +31,12 @@ import PlayItem from '../../components/PlayItem'
 export default {
     data(){
         return {
+            title:"加载更多",
+            disable:false,
             isList: false,
             page: 2,
-            itemList:[]
+            itemList:[],
+            keyWords:''
         }
     },
     
@@ -36,13 +45,48 @@ export default {
     },
 
     methods:{
+        //检索的数据
+        async search(keywords ){  
+            this.keyWords = keywords      
+            Indicator.open({
+                text:"loading",
+                spinnerType: "triple-bounce"
+            })
+            let url = `/api/server/search/s/${keywords}.json`
+            let result = await http.get(url)
+
+            if(result.pagerMemory.fistPage.length){
+                this.itemList = result.pagerMemory.fistPage
+                this.isList = true
+                this.$emit("getNoData",false) //调用父类方法改变图片显示
+            }else {
+                //将推荐的热词存入Vuex
+                this.setHotword(result.hotCustoms)
+                //调用默认数据填充
+                this.defalutData()
+                this.$emit("getNoData",true)
+            }
+            Indicator.close()            
+        },
+        //检索无结果的默认数据
+        async defalutData() {
+            //mimt.ui loading提示框
+            Indicator.open({
+                text: 'Loading',   
+                spinnerType: 'triple-bounce'
+            })
+
+            let url ="/api/server/category/default.json"
+            let result = await http.get(url)
+            this.itemList = result.pagerMemory.fistPage
+            this.isList = true
+            Indicator.close()//提示框消失
+        },
+        //加载更多
         async loadMore(){
-            if(this.page>4){
-                Toast({
-                    message: '没有更多了~',
-                    position: 'bottom',
-                    duration: 3000
-                })
+            if(false){                
+               this.title = "没有更多了"
+               this.disable = "true"
             } else{
                 Indicator.open({
                     text:"loading",
@@ -56,7 +100,7 @@ export default {
                         params:{
                             datestrEscape: "all",
                             datestr: "all",
-                            type: 1,
+                            type: 4,
                             tagstr: "all",
                             datestrSelected: "all",
                             typebjx: "all",
@@ -65,44 +109,40 @@ export default {
                             total: 2267,
                             typeajx: "all",
                             cityjx: "all",
-                            keyword: '',
+                            keyword: this.keyWords,
                             pagenum: this.page
-                        }               
+                        }  
                     }               
-                })
-                 if(result.pagerMemoryList){
-                     this.itemList = this.itemList.concat(result.pagerMemoryList)
-                 } 
+                }) 
+                 if(result.pagerMemoryList.length > 0){
+                    this.itemList = [...this.itemList,...result.pagerMemoryList]
+               } else if(result.pagerMemoryOrList.length > 0){
+                    this.itemList = [...this.itemList,...result.pagerMemoryOrList]
+               } else {
+                    this.title = "没有更多了"
+                    this.disable= true
+                 }
                 this.page++
-                Indicator.close()
+                Indicator.close(result)
             }
+        },
+        // vuex的store存储hotword
+        setHotword(Hotwords){
+            this.$store.dispatch("getSearchHot",Hotwords)
         }
-            
     },
 
     created(){
         this.page = 2
-    },
-
-    async mounted() {
-        //mimt.ui loading提示框
-        Indicator.open({
-            text: 'Loading',   
-            spinnerType: 'triple-bounce'
-        })
-
-        let url ="/api/server/category/default.json"
-        let result = await http.get(url)
-        this.itemList = result.pagerMemory.fistPage
-        this.isList = true
-        Indicator.close()//提示框消失
     }
+
+    
 }
 </script>
 <style lang="stylus" scoped>
 .recommend-list
     width 100%
-    min-height 4.5rem
+    min-height 4.2rem
     align-content center
     display flex
     flex-direction column
@@ -112,13 +152,14 @@ export default {
     align-items  center
     flex-wrap wrap
     .loadmore
-        height .2rem
+        height .25rem
         width 1rem
-        line-height .2rem
+        line-height .25rem
         color #ff7e6f
+        text-align center
+        border-radius .1rem
+        border-width 0
         background #fff
         box-shadow 0 .02rem .06rem 0 rgba(255, 58, 86, 0.2)
-        border-radius .1rem
-        text-align center
 
 </style>

@@ -7,18 +7,17 @@
                 :data-item="JSON.stringify(item)" 
             >
             </play-item >
-            <div class="loadmore" v-if="isList" @click="loadMore">查看更多</div>
+            <MoreButton class="loadmore" v-if="isList" @click.native="loadMore">查看更多</MoreButton>
         </div>
     </div>
 </template>
 <script>
 import Vue from 'vue'
 import http  from '../../utils/http'
-import BScroll from 'better-scroll'
 import _ from 'lodash'
 import { Indicator, Toast } from 'mint-ui' 
 
-import ItemMoive from '../../components/ItemMoive'
+import MoreButton from '../../components/MoreButton'
 import PlayItem from '../../components/PlayItem'
 
 // Vue.use(Indicator)
@@ -32,12 +31,13 @@ export default {
     },
     
     components:{
-        PlayItem
+        PlayItem,
+        MoreButton
     },
 
     methods:{
         async loadMore(){
-            if(this.page>4){
+            if(this.page>8){
                 Toast({
                     message: '没有更多了~',
                     position: 'bottom',
@@ -111,14 +111,6 @@ export default {
     align-content center
     align-items  center
     flex-wrap wrap
-    .loadmore
-        height .2rem
-        width 1rem
-        line-height .2rem
-        color #ff7e6f
-        background #fff
-        box-shadow 0 .02rem .06rem 0 rgba(255, 58, 86, 0.2)
-        border-radius .1rem
-        text-align center
+  
 
 </style>

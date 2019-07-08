@@ -48,13 +48,13 @@
 </template>
 <script>
 import Swiper from 'swiper'
-import Http from '../utils/http'
+import Http from '../../utils/http'
 
-import Recommend from '../views/home/Recommend'
-import Stadium from '../views/home/Stadium'
-import Footer from '../components/Footer'
+import Recommend from './Recommend'
+import Stadium from './Stadium'
+import Footer from '../../components/Footer'
 
-import imgAddress from '../filter/imgAddress'
+import imgAddress from '../../filter/imgAddress'
 export default {
     data(){
         return {
@@ -101,7 +101,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  @import '../../node_modules/swiper/dist/css/swiper.css'
+  @import '../../../node_modules/swiper/dist/css/swiper.css'
   add(a, b, n)
     a + b*n
 .home-content  
@@ -153,7 +153,7 @@ export default {
                 justify-content center 
                 align-items center                
                 i 
-                    background-image url(https://m2static.228.cn/images/icon.png) 
+                    background-image url("~@/assets/img/icon.png") 
                     background-repeat no-repeat
                     background-size .75rem
                     display block 

@@ -4,7 +4,7 @@
             <img :src="Item.pbigimg|imgAddress" alt=""/>
             <i></i>
             <div class="text-content">
-                <b>{{Item.name}}</b>
+                <b v-html="Item.name"></b>
                 <span>{{Item.begindate|dateTranslate}}</span>
                 <span>{{Item.vname}}</span>
                 <b class="money">{{Item.minprice}} - {{Item.maxprice}} 元</b>
@@ -34,15 +34,17 @@ export default {
 <style lang="stylus" scoped>
 @import '~@/assets/styles/ellipsis.styl'
 @import '~@/assets/styles/border.styl'
+
 .item-style
     width 100%
     height  1.29rem
+    margin-bottom .15rem
     display flex
     justify-content center
-    aligin-items center
+    align-items center
+    border_1px(0  0 1px 0)
     // padding-right .10rem
-    // padding-bottom .15rem
-   
+    // padding-bottom .15rem   
     img 
         width .85rem
         height 1.13rem

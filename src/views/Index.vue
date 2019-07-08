@@ -26,14 +26,8 @@
     </div>
 </template>
 <script>
-import Home from './Home'
+import Home from './home/Home'
 export default {
-    data(){
-        return {
-            
-        }
-    },
-
     components:{
         Home
     }
@@ -46,6 +40,7 @@ add(a, b)
 
 .index
     height 100%   
+    width 100%
     display flex
     flex-direction column    
 main
@@ -70,7 +65,7 @@ nav
            span 
                 flex 1
             i 
-                background-image url(https://m2static.228.cn/images/icon.png) 
+                background-image url("~@/assets/img/icon.png")
                 background-repeat no-repeat
                 background-size .75rem
                 display block 
@@ -88,11 +83,11 @@ nav
             li:nth-child(4)
                 i
                     background-position: 0 -6.21rem
-            li.active
-                span 
-                    color #ff7e6f
-                i 
-                    background-position 0 
+            // li.active
+            //     span 
+            //         color #ff7e6f
+            //     i 
+            //         background-position 0 
 
 
 </style>

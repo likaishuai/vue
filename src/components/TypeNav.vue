@@ -18,7 +18,7 @@ export default {
 @import "~@/assets/styles/border.styl"
 .type-nav
     height .4rem
-    border_1px(1px)
+    border_1px(0 0 1px 0)
     ul 
         height 100%
         display flex
@@ -31,8 +31,9 @@ export default {
             align-items center
             span 
                 // flex 1
-                font-size .16rem
                 height .45rem
+                font-size .14rem
+                font-weight 200
                 line-height .45rem
                 padding-right .1rem
                 text-align center

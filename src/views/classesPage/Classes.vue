@@ -8,10 +8,10 @@
 </template>
 
 <script>
-import PageHeader from '../components/PageHeader'
-import TypeNav from '../components/TypeNav'
-import Footer from '../components/Footer'
-import ClassList from '../views/classesPage/ClassList'
+import PageHeader from '../../components/PageHeader'
+import TypeNav from '../../components/TypeNav'
+import Footer from '../../components/Footer'
+import ClassList from './ClassList'
 
 export default {
     data() {
