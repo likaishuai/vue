@@ -7,7 +7,12 @@
                 :data-item="JSON.stringify(item)" 
             >
             </play-item >
-            <MoreButton class="loadmore" v-if="isList" @click.native="loadMore">查看更多</MoreButton>
+            <MoreButton class="loadmore" 
+                v-if="isList" 
+                @click.native="loadMore"
+            >
+            查看更多
+            </MoreButton>
         </div>
     </div>
 </template>

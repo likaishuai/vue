@@ -57,7 +57,7 @@ let routes = [
     ]
   },
   {
-    path:"/detail",
+    path:"/detail/:id",
     component:Detail
   }
 ]
@@ -68,52 +68,3 @@ export default new Router({
   routes
 })
 
-
-
-// let routes =  [
-//   {
-//     path: '/',
-//     redirect:'/index',
-//     component: Home,
-//     children:[
-//       {
-//         path: '/home',
-//         name: 'home',
-//         component: Home,
-//         // redirect: 'home/recommend',
-//         children: [
-//         {
-//           path: 'recommend',
-//           name:'recommend',
-//           component: Recommend
-//         },
-//         {
-//           path: 'stadium',
-//           name:'stadium',
-//           component: Stadium
-//         }
-//       ]
-//       },
-//       {
-//         path:"/detail",
-//         name:"detail",
-//         component:Detail
-//       },
-//       {
-//         path:'/classes',
-//         name: 'classes',
-//         component: Classes
-//       },
-//       {
-//         path: '/search',
-//         name: 'search',
-//         component: Search
-//       },
-//       {
-//         path:'/prefile',
-//         name: 'prefile',
-//         component: Prefile
-//       },
-//     ]
-//   },
-// ]

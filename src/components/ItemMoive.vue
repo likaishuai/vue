@@ -1,5 +1,7 @@
 <template>
-    <div class="item-style">
+    <div class="item-style"
+        @click="toDetail(Item.PRODUCTID)"
+    >
        <img :src="Item.PBIGIMG|imgAddress" alt=""/>
        <i></i>
        <b>{{Item.NAME}}</b>
@@ -19,6 +21,13 @@ export default {
     },
     
     props:["dataItem"],
+
+    methods:{
+        toDetail(id) {
+            console.log(0)
+            this.$router.push(`/detail/`+ id)
+        }
+    },
 
     mounted() {
         this.Item = JSON.parse(this.dataItem)

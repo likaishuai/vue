@@ -1,13 +1,20 @@
 <template>
     <div class="page-header">
-        <i></i>
+        <i @click="goBack"></i>
         <span>{{title}}</span>
         <b></b>
     </div>
 </template>
 <script>
 export default {   
-    props:['title']
+    props:['title'],
+
+    methods:{
+        goBack() {
+            this.$router.go(-1)
+        }
+    }
+
 }
 </script>
 <style lang="stylus" scoped>
@@ -16,7 +23,7 @@ export default {
 .page-header
     width 100%
     height .4rem
-    padding 0 .2rem
+    padding .1rem .2rem 0
     display flex
     justify-content space-around
     align-items center

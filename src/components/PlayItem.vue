@@ -1,15 +1,15 @@
 <template>
-    <div class="item-style">
-   
-            <img :src="Item.pbigimg|imgAddress" alt=""/>
-            <i></i>
-            <div class="text-content">
-                <b v-html="Item.name"></b>
-                <span>{{Item.begindate|dateTranslate}}</span>
-                <span>{{Item.vname}}</span>
-                <b class="money">{{Item.minprice}} - {{Item.maxprice}} 元</b>
-            </div>
-       
+    <div class="item-style"
+        @click="toDetail(Item.productid)"
+    >   
+        <img :src="Item.pbigimg|imgAddress" alt=""/>
+        <i></i>
+        <div class="text-content">
+            <b v-html="Item.name"></b>
+            <span>{{Item.begindate|dateTranslate}}</span>
+            <span>{{Item.vname}}</span>
+            <b class="money">{{Item.minprice}} - {{Item.maxprice}} 元</b>
+        </div>       
     </div>
 </template>
 <script>
@@ -24,6 +24,12 @@ export default {
     },
     
     props:["dataItem"],
+
+    methods:{
+        toDetail(id) {
+            this.$router.push(`/detail/`+ id)
+        }
+    },
 
     mounted() {
         this.Item = JSON.parse(this.dataItem)
