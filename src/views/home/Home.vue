@@ -2,7 +2,9 @@
     <div class="home-content">
         <div class="header-top">
             <span class="title">全国</span>
-            <span class="seacher"><b>搜索</b></span>
+            <span class="seacher"
+                @click="search"
+            ><b>搜索</b></span>
         </div>
         <div class="swiper-container">            
             <div class="swiper-wrapper">
@@ -78,8 +80,13 @@ export default {
                     el: '.swiper-pagination',
                 }
            })
-        }
         },
+
+        search() {
+            this.$router.push('/search')
+        }
+
+    },
 
     async mounted(){
         let result = await Http.get("/api/server/content/index.json")

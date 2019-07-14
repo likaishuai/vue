@@ -5,19 +5,19 @@
         </main>
         <nav>
             <ul>
-                <router-link to="/home" active-calss="active" tag="li">
+                <router-link to="/home" active-class="liactive" tag="li">
                     <i></i>
                     <span>首页</span>
                 </router-link>
-                <router-link to="/classes" active-calss="active" tag="li">
+                <router-link to="/classes" active-class="liactive" tag="li">
                     <i></i>
                     <span>分类</span>
                 </router-link>
-                <router-link to="/search" active-calss="active" tag="li">
+                <router-link to="/search" active-class="liactive" tag="li">
                     <i></i>
                     <span>搜索</span>
                 </router-link>
-                <router-link to="/prefile" active-calss="active" tag="li">
+                <router-link to="/prefile" active-class="liactive" tag="li">
                     <i></i>
                     <span>我的</span>
                 </router-link>
@@ -35,6 +35,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>    
+@import '~@/assets/styles/border.styl'
 add(a, b)
     a+b
 
@@ -48,9 +49,11 @@ main
     background #fff    
     overflow scroll
   
+.liactive
+    background  -webkit-linear-gradient(top,#fff,#ffaaee)
 nav 
     height .5rem
-    background yellow
+    border_1px(1px 0 0 0 )
     ul 
         display flex
         height 100%
@@ -58,6 +61,7 @@ nav
         li
             flex 1
             height 100%
+            padding .05rem 0 0 
             display flex             
             flex-direction column
             justify-content center
@@ -83,11 +87,6 @@ nav
             li:nth-child(4)
                 i
                     background-position: 0 -6.21rem
-            // li.active
-            //     span 
-            //         color #ff7e6f
-            //     i 
-            //         background-position 0 
 
 
 </style>

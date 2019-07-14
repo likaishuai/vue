@@ -1,33 +1,31 @@
 <template>
   <div class="detail-content">
     <main>
-        <Information :data-detail="JSON.stringify(information)"></Information>
+        <Information v-bind="informationData"></Information>
         <div class="main-conent">
-            <Place :data-detail="JSON.stringify(place)"></Place>
-            <PlayCity v-if="product.listPerform && product.listPerform.length>0"></PlayCity>
-            <section>
-                <h2>注意事项</h2>
-                <p>
-                    a)演出详情仅供参考，具体信息以现场为准；<br>
-                    b)1.2米以下儿童谢绝入场，1.2米以上儿童需持票入场；<br>
-                    c)演出票品具有唯一性、时效性等特殊属性，如非活动变更、活动取消、票品错误的原因外，不提供退换票品服务，购票时请务必仔细核对并审慎下单。<br>
-                    d)需要开具发票的购票客户，请您在演出/活动开始5天前提供相关发票信息至在线客服，演出/活动结束后将统一由演出/活动主办单位开具增值税发票。                  
-                </p>
-            </section>
-            <TextContent :title="购票公告"
+            <Place v-bind="placeData" ></Place>
+            <PlayCity v-if="plaucity.exist"></PlayCity>
+            <TextContent :title="'注意事项'"
+                v-if="hasText1"
+                :data-detail="product.PRECAUTIONS"
+             ></TextContent>
+            <TextContent
+                :title="'购票公告'"
+                v-if="hasText2"
                 :data-detail="product.BUY_AFFICHE"
              ></TextContent>
-            <TextContent :title="演出详情"
-                :data-detail="product.INTRODUCTION1"
+            <TextContent :title="'演出详情'"
+                v-if="hasText3"
+                :data-detail="product.INTRODUCTION"
             ></TextContent>
-            <Quest></Quest>
-            <Quest></Quest>
+            <Quest :title="'FAQ'" :productId="productId"></Quest>
         </div>
         <Footer></Footer>
     </main>      
     <div class="bottom-nav">
         <b></b>
-        <div class="buy">立即购买</div>
+        <div class="buy" v-if="!isClose">立即购买</div>
+        <div class="buy not" v-if="isClose">无法购票</div>
     </div>
 </div>
 </template>
@@ -41,14 +39,22 @@ import Quest from './Quest'
 import Footer from '../components/Footer'
 
 import Http from '../utils/http'
+import { Indicator, Toast } from 'mint-ui' 
 
 export default {
     data() {
         return {
             productId:'',
-            result:{},
-            information:{},
-            place:{},
+            isClose: true,
+
+            hasText1: true,
+            hasText2: true,
+            hasText3: true,
+
+            product: {},
+            plaucity: { exist: false},
+            informationData:{},
+            placeData:{},
             questList:[]
         }
     },
@@ -62,25 +68,51 @@ export default {
         Footer
     },
 
-    async mounted() {
-       this.productId = this.$route.params.id
+    async created() {
+        Indicator.open({
+            text: 'Loading...',
+            spinnerType: 'triple-bounce'
+            })
+
+        this.productId = this.$route.params.id
         //请求数据
-       this.result = await Http.get(`api/server/product/ticket-${ this.productId }.json`)
-       this.product = this.result.product
-       this.information = { 
-           image: this.result.product.PBIGIMG,
-           name: this.result.product.NAME,
-           price: [this.result.product.MINPRICE,this.result.product.MAXPRICE] 
+        let result= await Http.get(`api/server/product/ticket-${ this.productId }.json`)
+       this.product = result.product
+        //判断是否在售票
+        this.isClose = !(this.product.DISPLAY == 1) 
+       //详情头部信息
+        this.informationData = { 
+            image: this.product.PBIGIMG,
+            name: this.product.NAME,
+            minPrice: this.product.MINPRICE,
+            maxPrice: this.product.MAXPRICE            
         }
-        this.place = {
-            tip: this.result.product.SPECIAL,
-            time: this.result.product.BEGINDATE,
-            address: this.result.product.VNAME
+        //详情提示信息
+        this.placeData = {
+            id: this.product.VENUESID,
+            tip: this.product.SPECIAL,
+            time: this.product.BEGINDATE,
+            address: this.product.VNAME
         }
-       console.log(this.information)
+        //巡演城市
+        if(this.product.listPerform){
+            this.listPerform= {
+                ...this.listPerform,
+                exist: true,
+                cityList: [
+                    "none"
+                ]
+            }
+        }
 
+        //判断是否存在文本
+        if(!this.product.PRECAUTIONS) this.hasText1 = false
+        if(!this.product.BUY_AFFICHE) this.hasText2 = false
+        if(!this.product.INTRODUCTION) this.hasText3 = false
 
+        Indicator.close()
     }
+   
 }
 </script>
 
@@ -99,6 +131,7 @@ b
     main
         flex 1
         overflow scroll
+        background #f5f6f7
         .main-conent
             display flex
             flex-direction column
@@ -111,6 +144,8 @@ b
         justify-content center
         padding .08rem .2rem
         background #ffffff
+        .not 
+            background #7777 !important
         .buy
             width 3.17rem
             height .44rem

@@ -1,14 +1,17 @@
 <template>
     <section>
-         <h2>巡演城市</h2>
+         <h2>{{title}}</h2>
          <p>
-            <span class="tip" :class="{'hidden': isHidden }" >【温馨提示】测试测试测试测试测试测试测，试测试测试测试测，
-            试测试测试测试测试测，试测试测试，测试测试测试，测试测试测试测试测试，
-            测试测试测试测试测试测试测试测试测试测试测试，测试测试测试测试测，试测试测，
-            试测试测试测试测试测试测试测，试测试测试测试测试          
-            </span>
-        <em class="look-more"  @click="lookmore">{{hiddenText}}</em>
-       
+            <span class="tip" 
+                :class="{'hidden': (isHidden && hasMoreBtn) }" 
+                v-html="dataDetail"
+            ></span>
+            <em class="look-more"  
+                v-if="hasMoreBtn"
+                @click="lookmore"
+            >
+            {{hiddenText}}
+            </em>
          </p>
     </section>
 </template>
@@ -17,16 +20,25 @@
 export default {
     data() {
         return {
+            hasMoreBtn : true, 
             isHidden : true,
             hiddenText : "查看更多"
         }
     },
+
+    props:["title","dataDetail"],
 
     methods:{
         lookmore() {
             this.isHidden = !this.isHidden
             if(this.isHidden) this.hiddenText = "查看更多"
             else this.hiddenText = "收起"
+        }
+    },
+
+    mounted() {
+        if(this.title == "注意事项"){
+            this.hasMoreBtn = false
         }
     }
 
@@ -59,7 +71,7 @@ p
     overflow hidden
 .look-more
     display block
-    margin-bottom .05rem        
+    margin .05rem  0      
     text-align center
     color rgba(255, 58, 86, 0.8)
    

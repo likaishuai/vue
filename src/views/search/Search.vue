@@ -10,7 +10,7 @@
                 @keypress.enter="searchKeyword"
             >
             <i></i>
-            <span>取消</span>
+            <span @click="backToHome">取消</span>
         </div>
 
         <TypeNav></TypeNav>
@@ -61,6 +61,9 @@ export default {
         //子组件的方法调用改变图片显示状态
         setNoData(flag){
             this.NoData=flag
+        },
+        backToHome() {
+            this.$router.push('/home')
         }
     },
     updata(){

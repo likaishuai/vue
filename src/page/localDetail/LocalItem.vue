@@ -1,39 +1,35 @@
 <template>
     <div class="item-style"
-        @click="toDetail(Item.productid)"
+        @click="toDetail(Item.PRODUCTID)"
     >   
-        <img :src="Item.pbigimg|imgAddress" alt=""/>
-        <i v-if="Item.onlineseat">售票中</i>
+        <img :src="Item.PSMILLIMG|imgAddress" alt=""/>
+        <i v-if="Item.DISPLAY">售票中</i>
         <div class="text-content">
-            <b v-html="Item.name"></b>
-            <span>{{Item.begindate|dateTranslate}}</span>
-            <span>{{Item.vname}}</span>
-            <b class="money">{{Item.minprice}} - {{Item.maxprice}} 元</b>
-        </div>       
+            <b v-html="Item.NAME"></b>
+            <span>{{Item.BEGINDATE|dateTranslate}}-{{Item.ENDDATE|dateTranslate}}</span>
+            <span>{{Item.VNAME}}</span>
+            <b class="money">{{Item.MINPRICE}} - {{Item.MAXPRICE}} 元</b>
+        </div> 
     </div>
 </template>
 <script>
-import imgAddress from '../filter/imgAddress'
-import dateTranslate from '../filter/dateTranslate'
+import imgAddress from '../../filter/imgAddress'
+import dateTranslate from '../../filter/dateTranslate'
 
 export default {
     data() {
         return {
             Item: ''
         }
-    },
-    
+    },    
     props:["dataItem"],
-
     methods:{
         toDetail(id) {
             this.$router.push(`/detail/`+ id)
         }
-    },
-
+    },    
     mounted() {
-        this.Item = JSON.parse(this.dataItem)
-        
+        this.Item = this.dataItem
     }
 }
 </script>
@@ -53,10 +49,12 @@ i
     left 0
     border-radius .1rem 0 .1rem 0
     background linear-gradient(to right, #ff7e6f, #ff2959)
+
 .item-style
     width 100%
     height  1.29rem
     margin-bottom .15rem
+    position relative
     display flex
     justify-content center
     align-items center
@@ -66,7 +64,7 @@ i
     img 
         width .85rem
         height 1.13rem
-        border-radius .05rem
+        border-radius .1rem
     div.text-content 
         display flex
         flex-direction column

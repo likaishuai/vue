@@ -1,5 +1,5 @@
 <template>
-    <div class="item-style">
+    <div class="item-style" v-on:click="handleClick">
        <img :src="Item.IMG|imgAddress" alt=""/>
        <i></i>
        <b>{{Item.VNAME}}</b>
@@ -18,6 +18,12 @@ export default {
     },
     
     props:["dataSta"],
+    methods:{
+
+        handleClick(){
+            this.$router.push(`/localdetail/${this.Item.VENUESID}`)
+        },
+    },
 
     mounted() {
         this.Item = JSON.parse(this.dataSta)

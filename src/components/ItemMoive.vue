@@ -3,7 +3,6 @@
         @click="toDetail(Item.PRODUCTID)"
     >
        <img :src="Item.PBIGIMG|imgAddress" alt=""/>
-       <i></i>
        <b>{{Item.NAME}}</b>
        <span>{{Item.BEGINDATE|dateTranslate}}</span>
        <span><b class="money">￥{{Item.MINPRICE}}</b> 起</span>
@@ -24,7 +23,6 @@ export default {
 
     methods:{
         toDetail(id) {
-            console.log(0)
             this.$router.push(`/detail/`+ id)
         }
     },
@@ -38,9 +36,11 @@ export default {
 <style lang="stylus" scoped>
 @import '~@/assets/styles/ellipsis.styl'
 @import '~@/assets/styles/border.styl'
+
 .item-style
     width 1.15rem
     height  2.23rem
+    position relative
     // padding-right .10rem
     // padding-bottom .15rem
     img 

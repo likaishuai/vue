@@ -1,25 +1,46 @@
 <template>
     <div class="place-content">
-        <div class="tip" :class="{'hidden': isHidden }" >【温馨提示】测试测试测试测试测试测试测，试测试测试测试测，
-            试测试测试测试测试测，试测试测试，测试测试测试，测试测试测试测试测试，
-            测试测试测试测试测试测试测试测试测试测试测试，测试测试测试测试测，试测试测，
-            试测试测试测试测试测试测试测，试测试测试测试测试          
+        <div class="tip" 
+            v-if="hasTip"
+            :class="{'hidden': isHidden }" 
+            v-html="tip"
+        >        
         </div>
-        <div class="look-more"  @click="lookmore">{{hiddenText}}</div>
-        <div class="place">
-            <div><i></i><span>2019.07.01</span></div>
-            <div><i></i><span>合肥国际会展中心主展馆</span></div>
+        <div class="look-more"  
+            v-if="hasTip"
+            @click="lookmore"
+        >
+            {{ hiddenText }}
+        </div>
+        <div class="place" @click="linkToDetail(id)">
+            <div>
+                <i></i>
+                <span>{{ time | dateTranslate }}</span>
+            </div>
+            <div>
+                <i></i>
+                <span>{{ address }}</span>
+            </div>
             <i class="arrow"></i>
         </div>
     </div>
 </template>
 <script>
+import dateTranslate from '../filter/dateTranslate'
 export default {
     data() {
         return {
+            hasTip: true,
             isHidden : true,
             hiddenText : "查看更多"
         }
+    },
+
+    props:{
+        id: Number,
+        tip: String,
+        time: String,
+        address: String
     },
 
     methods:{
@@ -27,9 +48,21 @@ export default {
             this.isHidden = !this.isHidden
             if(this.isHidden) this.hiddenText = "查看更多"
             else this.hiddenText = "收起"
+        },
+        linkToDetail( id ) {
+           this.$router.push(`/localdetail/${id}`)
+        }
+    },
+
+    watch: {
+        tip: function() {
+            if(this.tip==null){
+                this.hasTip = false
+            }else{
+                this.hasTip = true
+            }
         }
     }
-
 }
 </script>
 
@@ -48,7 +81,8 @@ i
     color #999999
     font-size .14rem
     background #ffffff
-    border-radius .1rem
+    border-radius .15rem
+    margin-top .1rem
     padding .1rem .1rem 0 .1rem 
     .tip
         // ellipsis(100%)    

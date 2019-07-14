@@ -1,10 +1,10 @@
 <template>
     <div class="detail-main">      
-        <div class="background">
+        <div class="background" :style="bgStyle">
             <div class="indistinct"></div>
         </div>
         <div class="detail-header">
-            <i class="back"></i>
+            <i class="back" @click="goBack"></i>
             <div class="right">                
                 <i class="colltion"></i>
                 <i class="share"></i>
@@ -12,15 +12,15 @@
         </div>
         <div class="content">
             <div class="img">
-                <img :src="information.image | imgAddress" alt />
+                <img :src="image | imgAddress" alt />
             </div>
             <div class="text-content">
-                <div class="text-header">{{information.name}}
+                <div class="text-header">{{name}}
 
                 </div>
                 <div class="idcard"><i></i>实名认证 </div>
                 <div class="price">
-                    ￥{{ information.price[0] }} - ￥{{ information.price[1] }}
+                    ￥{{ minPrice }} - ￥{{ maxPrice }}
                 </div>
             </div>
         </div>
@@ -31,22 +31,37 @@ import imgAddress from '../filter/imgAddress'
 export default {
     data() {
         return {
-           information:[]
+            bgStyle:''
         }
     },
-    props:["dataDetail"],
 
-    mounted() {
-        this.information = JSON.parse( this.dataDetail )
-        console.log(this.information.name)
+    props:{
+        image: String,
+        name: String,
+        minPrice: Number,
+        maxPrice: Number,
+    },
+
+    methods: {
+        goBack() {
+            this.$router.go(-1)
+        }
+    },
+
+    watch: {
+        image: function(){
+            let urlHeader = "https://static.228.cn/"
+            this.bgStyle = "background:url("+urlHeader + this.image + ")"
+        }
     }
+
 }
 </script>
 
 
 <style lang="stylus" scoped>
 i 
-    background-image url(../assets/img/product-icon.png)
+    background-image url(../assets/img/icon.png)
     background-repeat no-repeat  
 .detail-main     
     height 2.5rem
@@ -56,7 +71,6 @@ i
     .background 
         width: 100%;
         height: 1.9rem;
-        background: url('../../public/test.jpg');
         border-bottom-left-radius: 1.8rem 0.2rem;
         border-bottom-right-radius: 1.8rem 0.2rem; 
 
@@ -102,7 +116,7 @@ i
     justify-content center
 
     .img 
-        background #777777
+        background #fff
         width 1.2rem
         height 1.6rem
         border-radius .1rem
@@ -119,7 +133,7 @@ i
         justify-content space-around
         .text-header
             width 2rem
-            font-size .2rem
+            font-size .16rem
             height .63rem
         .idcard
             height .17rem

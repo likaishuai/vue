@@ -12,7 +12,9 @@ import Recommend from './views/home/Recommend'
 import Stadium from './views/home/Stadium'
 
 import Detail from './page/Detail'
+import FAQ from './page/FAQ'
 
+import LocalDetail from './page/localDetail/LocalDetail'
 Vue.use(Router)
 
 let routes = [
@@ -58,8 +60,20 @@ let routes = [
   },
   {
     path:"/detail/:id",
+    name:'detail',
     component:Detail
+  },
+  {
+    path:"/FAQ/:id",
+    name: 'FAQ',
+    component:FAQ
+  },
+  {
+    path:"/localDetail/:id",
+    name:"localDetail",
+    component: LocalDetail
   }
+
 ]
 
 

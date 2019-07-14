@@ -1,16 +1,17 @@
 <template>
-    <div class="quest">
-      <span>{{questText}}</span>  <i class="arrow"></i>
+    <div class="quest"  @click="goFAQ">
+      <span>{{title}}</span>  <i class="arrow"></i>
     </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            questText:"FAQ"
+    props:["title","productId"],
+    methods: {
+        goFAQ() {
+            this.$router.push(`/FAQ/${this.productId}`)
         }
-    }
+    },
 }
 </script>
 

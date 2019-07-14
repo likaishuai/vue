@@ -3,16 +3,9 @@
 </template>
 
 
+<script>
+export default {
+    
+}
+</script>
 
-// <script>
-// import Index from './views/Index'
-// export default {
-//   components: {
-//     Index
-//   }
-// }
-// </script>
-
-// <style lang="stylus">
-
-// </style>

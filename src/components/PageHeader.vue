@@ -24,6 +24,7 @@ export default {
     width 100%
     height .4rem
     padding .1rem .2rem 0
+    background #fff
     display flex
     justify-content space-around
     align-items center
